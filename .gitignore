@@ -1,0 +1,54 @@
+# Root-level ignores
+node_modules/
+*.log
+.env
+.DS_Store
+
+# Client (React) ignores
+/client/node_modules/
+/client/build/
+/client/dist/
+/client/.env
+/client/*.log
+
+# Server (Node.js/Express) ignores
+/server/node_modules/
+/server/.env
+/server/*.log
+
+# Build and deployment artifacts
+/dist/
+/build/
+
+# Dependency directories
+*.lock
+package-lock.json  # If using npm; remove if using yarn
+yarn.lock          # If using yarn; remove if using npm
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Editor and IDE files
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# Testing and coverage
+/coverage/
+/*.test.js
+/__tests__/__snapshots__/
+
+# macOS-specific
+*.DS_Store
+
+# Windows-specific
+Thumbs.db
+ehthumbs.db
+
+# Miscellaneous
+*.swp
+*.swo
+*.tmp
