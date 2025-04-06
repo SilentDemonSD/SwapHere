@@ -1,0 +1,76 @@
+/* Login Page Styles */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #fafafa;
+}
+
+.login-box {
+    background-color: #fff;
+    padding: 40px;
+    border: 1px solid #dbdbdb;
+    border-radius: 4px;
+    text-align: center;
+    width: 350px;
+}
+
+.login-box .logo {
+    font-size: 36px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.login-input {
+    padding: 10px;
+    border: 1px solid #dbdbdb;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: #fafafa;
+}
+
+.login-btn {
+    padding: 10px;
+    background-color: #0095f6;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.login-btn:hover {
+    background-color: #007bb5;
+}
+
+.signup-text {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #555;
+}
+
+.signup-text a {
+    color: #0095f6;
+    text-decoration: none;
+    font-weight: 500;
+}
+/* Google Login Button Styles */
+.google-login {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+/* Ensure Google button aligns with the design */
+.g_id_signin {
+    margin: 0 auto;
+}
