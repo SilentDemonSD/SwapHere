@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkillSwap - Login</title>
+    <link rel="stylesheet" href="login styles.css">
+    <!-- Google Identity Services Library -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-box">
+            <h1 class="logo">SkillSwap</h1>
+            <form class="login-form">
+                <input type="text" placeholder="Username" class="login-input" required>
+                <input type="password" placeholder="Password" class="login-input" required>
+                <button type="submit" class="login-btn">Log In</button>
+            </form>
+            <!-- Google Sign-In Button -->
+            <div class="google-login">
+                <div id="g_id_onload"
+                     data-client_id="YOUR_GOOGLE_CLIENT_ID"
+                     data-login_uri="http://localhost:3000/auth/google/callback"
+                     data-callback="handleGoogleSignIn">
+                </div>
+                <div class="g_id_signin" data-type="standard" data-size="large" data-theme="outline" data-text="sign_in_with" data-shape="rectangular"></div>
+            </div>
+            <p class="signup-text">Don't have an account? <a href="#signup">Sign Up</a></p>
+        </div>
+    </div>
+
+    <!-- JavaScript for Google Sign-In -->
+    <script>
+        function handleGoogleSignIn(response) {
+            console.log("Google ID Token:", response.credential);
+            // Send the token to your backend for verification
+            fetch('/auth/google', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ token: response.credential })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    window.location.href = 'index.html'; // Redirect to main page
+                } else {
+                    alert('Google login failed');
+                }
+            })
+            .catch(err => console.error('Error:', err));
+        }
+    </script>
+</body>
+</html>
