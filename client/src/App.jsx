@@ -1,25 +1,40 @@
-import logo from './logo.svg';
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { Grid } from '@mui/material';
+import LeftPanel from './components/LeftPanel';
+import MiddleSection from './components/MiddleSection';
+import RightPanel from './components/RightPanel';
+import Profile from './pages/Profile';
+import Navbar from './components/Navbar';
 import './App.css';
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div className="app-container">
+        <Navbar />
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <Grid container>
+                <Grid item xs={2} md={2}>
+                  <LeftPanel />
+                </Grid>
+                <Grid item xs={10} md={7}>
+                  <MiddleSection />
+                </Grid>
+                <Grid item md={3} sx={{ display: { xs: 'none', md: 'block' } }}>
+                  <RightPanel />
+                </Grid>
+              </Grid>
+            }
+          />
+          <Route path="/profile" element={<Profile />} />
+        </Routes>
+      </div>
+    </Router>
   );
-}
+};
 
 export default App;

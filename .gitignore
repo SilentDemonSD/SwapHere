@@ -1,7 +1,6 @@
 # Root-level ignores
 node_modules/
 *.log
-.env
 .DS_Store
 
 # Client (React) ignores
