@@ -7,10 +7,13 @@ const app = express();
 
 connectDB();
 
-app.use(cors());
+app.use(cors({
+  origin: ['http://localhost:3000', 'https://swaphere-ashen.vercel.app'],
+  credentials: true,
+}));
 app.use(express.json());
 
-app.use('/api/auth', require('./routes/Auth'));
+app.use('/api/auth', require('./routes/auth'));
 app.use('/api/skills', require('./routes/skill'));
 app.use('/api/users', require('./routes/user'));
 
