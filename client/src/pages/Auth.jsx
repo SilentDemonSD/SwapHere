@@ -7,7 +7,8 @@ const Auth = () => {
   const navigate = useNavigate();
 
   const handleSuccess = async (response) => {
-    const res = await axios.post('/api/auth/google', {
+    const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+    const res = await axios.post(`${apiUrl}/api/auth/google`, {
       googleId: response.credential,
       name: response.name,
       email: response.email,

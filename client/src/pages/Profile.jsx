@@ -5,10 +5,11 @@ import axios from 'axios';
 const Profile = () => {
   const [user, setUser] = useState(null);
   const [skill, setSkill] = useState({ title: '', description: '', category: '' });
+  const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 
   useEffect(() => {
     const fetchUser = async () => {
-      const res = await axios.get('/api/users/me', {
+      const res = await axios.get(`${apiUrl}/api/users/me`, {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
       });
       setUser(res.data);
@@ -22,7 +23,7 @@ const Profile = () => {
     });
     setSkill({ title: '', description: '', category: '' });
     // Refresh user data
-    const res = await axios.get('/api/users/me', {
+    const res = await axios.get(`${apiUrl}/api/users/me`, {
       headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
     });
     setUser(res.data);
