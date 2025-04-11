@@ -25,8 +25,16 @@ const Profile = () => {
     fetchSkills();
   }, []);
 
-  const handleAddSkill = (newSkill) => {
-    setSkills([...skills, newSkill]);
+  const handleAddSkill = async () => {
+    await axios.post('/api/skills', skill, {
+      headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+    });
+    setSkill({ title: '', description: '', category: '' });
+    // Refresh user data
+    const res = await axios.get(`${apiUrl}/api/users/me`, {
+      headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+    });
+    setUser(res.data);
   };
 
   return (

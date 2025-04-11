@@ -8,7 +8,8 @@ const MiddleSection = () => {
   const [page, setPage] = useState(1);
 
   const fetchSkills = async () => {
-    const res = await axios.get(`/api/skills?page=${page}`);
+    const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+    const res = await axios.get(`${apiUrl}/api/skills?page=${page}`);
     setSkills([...skills, ...res.data]);
     setPage(page + 1);
   };

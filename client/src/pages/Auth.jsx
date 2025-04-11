@@ -17,6 +17,15 @@ const Auth = () => {
     } catch (error) {
       console.error('Login failed:', error);
     }
+    const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+    const res = await axios.post(`${apiUrl}/api/auth/google`, {
+      googleId: response.credential,
+      name: response.name,
+      email: response.email,
+      photo: response.picture,
+    });
+    localStorage.setItem('token', res.data.token);
+    navigate('/profile');
   };
 
   return (
