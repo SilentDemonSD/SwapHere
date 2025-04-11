@@ -1,16 +1,19 @@
 # Root-level ignores
 node_modules/
 *.log
+.env
 .DS_Store
 
 # Client (React) ignores
 /client/node_modules/
 /client/build/
 /client/dist/
+/client/.env
 /client/*.log
 
 # Server (Node.js/Express) ignores
 /server/node_modules/
+/server/.env
 /server/*.log
 
 # Build and deployment artifacts
