@@ -7,7 +7,17 @@ const LeftPanel = () => {
   const navigate = useNavigate();
 
   return (
-    <Box sx={{ p: 2, background: 'rgba(255, 255, 255, 0.05)', height: '100vh' }}>
+    <Box 
+      sx={{ 
+        p: 2, 
+        background: 'rgba(255, 255, 255, 0.05)', 
+        height: '100vh',
+        display: 'flex',           // Enable flexbox
+        flexDirection: 'column',   // Stack items vertically
+        alignItems: 'center',      // Center icons horizontally
+        gap: 2                     // Add spacing between icons
+      }}
+    >
       <IconButton onClick={() => navigate('/dashboard')}>
         <Dashboard sx={{ color: '#fff' }} />
       </IconButton>
