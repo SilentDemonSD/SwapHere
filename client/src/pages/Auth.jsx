@@ -1,26 +1,28 @@
-import React from 'react';
-import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
+import React, { useContext } from 'react';
+import { GoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { UserContext } from '../App'; // Assuming you use context
 
 const Auth = () => {
-  const navigate = useNavigate();
+  const { setUser } = useContext(UserContext);
 
   const handleSuccess = async (response) => {
-    const res = await axios.post('/api/auth/google', {
-      googleId: response.credential,
-      name: response.name,
-      email: response.email,
-      photo: response.picture,
-    });
-    localStorage.setItem('token', res.data.token);
-    navigate('/profile');
+    try {
+      const res = await axios.post(`${process.env.REACT_APP_API_URL}/api/auth/google`, {
+        token: response.credential,
+      });
+      localStorage.setItem('token', res.data.token);
+      localStorage.setItem('user', JSON.stringify(res.data.user));
+      setUser(res.data.user); // Update global state
+    } catch (error) {
+      console.error('Login failed:', error);
+    }
   };
 
   return (
-    <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}>
-      <GoogleLogin onSuccess={handleSuccess} onError={() => console.log('Login Failed')} />
-    </GoogleOAuthProvider>
+    <div>
+      <GoogleLogin onSuccess={handleSuccess} onError={(error) => console.log(error)} />
+    </div>
   );
 };
 

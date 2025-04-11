@@ -7,6 +7,9 @@ import RightPanel from './components/RightPanel';
 import Profile from './pages/Profile';
 import Navbar from './components/Navbar';
 import './App.css';
+import Auth from './pages/Auth';
+
+export const UserContext = createContext();
 
 const App = () => {
   return (
@@ -30,6 +33,7 @@ const App = () => {
               </Grid>
             }
           />
+          <Route path="/auth" element={<Auth />} />
           <Route path="/profile" element={<Profile />} />
         </Routes>
       </div>
