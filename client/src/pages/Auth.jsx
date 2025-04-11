@@ -3,7 +3,7 @@ import React from 'react';
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import jwtDecode from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode'; // Corrected import
 
 const Auth = () => {
   const navigate = useNavigate();
@@ -11,7 +11,7 @@ const Auth = () => {
 
   const handleSuccess = async (response) => {
     try {
-      const decoded = jwtDecode(response.credential);
+      const decoded = jwtDecode(response.credential); // Use named export
       const res = await axios.post(`${apiUrl}/api/auth/google`, {
         googleId: decoded.sub,
         name: decoded.name,
@@ -20,7 +20,7 @@ const Auth = () => {
       });
       localStorage.setItem('token', res.data.token);
       localStorage.setItem('user', JSON.stringify(res.data.user));
-      navigate('/profile'); // Ensure this triggers
+      navigate('/profile');
     } catch (error) {
       console.error('Login failed:', error);
     }
