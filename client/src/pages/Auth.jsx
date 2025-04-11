@@ -1,37 +1,40 @@
-import React, { useContext } from 'react';
-import { GoogleLogin } from '@react-oauth/google';
+// client/src/pages/Auth.jsx
+import React from 'react';
+import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
-import { UserContext } from '../App'; // Assuming you use context
+import { useNavigate } from 'react-router-dom';
+import jwtDecode from 'jwt-decode';
 
 const Auth = () => {
-  const { setUser } = useContext(UserContext);
+  const navigate = useNavigate();
+  const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 
   const handleSuccess = async (response) => {
     try {
-      const res = await axios.post(`${process.env.REACT_APP_API_URL}/api/auth/google`, {
-        token: response.credential,
+      const decoded = jwtDecode(response.credential);
+      const res = await axios.post(`${apiUrl}/api/auth/google`, {
+        googleId: decoded.sub,
+        name: decoded.name,
+        email: decoded.email,
+        photo: decoded.picture,
       });
       localStorage.setItem('token', res.data.token);
       localStorage.setItem('user', JSON.stringify(res.data.user));
-      setUser(res.data.user); // Update global state
+      navigate('/profile'); // Ensure this triggers
     } catch (error) {
       console.error('Login failed:', error);
     }
-    const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5000';
-    const res = await axios.post(`${apiUrl}/api/auth/google`, {
-      googleId: response.credential,
-      name: response.name,
-      email: response.email,
-      photo: response.picture,
-    });
-    localStorage.setItem('token', res.data.token);
-    navigate('/profile');
   };
 
   return (
-    <div>
-      <GoogleLogin onSuccess={handleSuccess} onError={(error) => console.log(error)} />
-    </div>
+    <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}>
+      <div className="container">
+        <div className="card">
+          <h2>Sign In</h2>
+          <GoogleLogin onSuccess={handleSuccess} onError={() => console.log('Login Failed')} />
+        </div>
+      </div>
+    </GoogleOAuthProvider>
   );
 };
 
